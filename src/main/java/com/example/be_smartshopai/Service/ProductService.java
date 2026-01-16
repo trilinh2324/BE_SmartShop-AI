@@ -21,6 +21,13 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
 
     // =========================
+    // CHECK TRÙNG TÊN (FE dùng)
+    // =========================
+    public boolean checkNameExists(String name) {
+        return productRepository.existsByNameIgnoreCase(name);
+    }
+
+    // =========================
     // GET ALL
     // =========================
     public List<Product> getAllProducts() {
@@ -28,9 +35,14 @@ public class ProductService {
     }
 
     // =========================
-    // CREATE PRODUCT
+    // CREATE PRODUCT (CHẶN TRÙNG TÊN)
     // =========================
     public Product createProduct(ProductCreateRequest request) {
+
+        // ❌ TRÙNG TÊN
+        if (productRepository.existsByNameIgnoreCase(request.getName())) {
+            throw new RuntimeException("❌ Tên sản phẩm đã tồn tại");
+        }
 
         Category category = categoryRepository.findByName(request.getCategoryName())
                 .orElseThrow(() ->
@@ -47,13 +59,19 @@ public class ProductService {
         product.setCategory(category);
         product.setCreatedAt(LocalDateTime.now());
         product.setUpdatedAt(LocalDateTime.now());
+
+        // =========================
         // PRODUCT DETAIL
+        // =========================
         if (request.getProductDetail() != null) {
             ProductDetail detail = request.getProductDetail();
             detail.setProduct(product);
             product.setProductDetail(detail);
         }
-        // PRODUCT COLORS (IMAGE URL)
+
+        // =========================
+        // PRODUCT COLORS
+        // =========================
         if (request.getColors() != null && !request.getColors().isEmpty()) {
 
             List<ProductColor> colors = new ArrayList<>();
@@ -68,8 +86,8 @@ public class ProductService {
                 color.setColorName(c.getColorName());
                 color.setQuantity(c.getQuantity());
                 color.setImage(c.getImage());
-
                 color.setProduct(product);
+
                 colors.add(color);
             }
 
@@ -88,13 +106,18 @@ public class ProductService {
     }
 
     // =========================
-    // UPDATE PRODUCT
+    // UPDATE PRODUCT (CHẶN TRÙNG TÊN)
     // =========================
     public Product updateProduct(Long id, ProductUpdateRequest request) {
 
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
+        // ❌ TRÙNG TÊN (KHÁC ID)
+        if (!product.getName().equalsIgnoreCase(request.getName())
+                && productRepository.existsByNameIgnoreCase(request.getName())) {
+            throw new RuntimeException("❌ Tên sản phẩm đã tồn tại");
+        }
         product.setName(request.getName());
         product.setBrand(request.getBrand());
         product.setPrice(request.getPrice());
@@ -159,5 +182,14 @@ public class ProductService {
 
         productRepository.delete(product);
     }
-
 }
+
+
+
+
+
+
+
+
+
+

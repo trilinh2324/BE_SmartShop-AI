@@ -16,8 +16,9 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;                 // ID sản phẩm
-
+    private Long id;
+    // ID sản phẩm
+    @Column(unique = true)
     private String name;             // Tên sản phẩm (VD: iPhone 15 Pro, MacBook M3)
 
     private String brand;            // Thương hiệu (Apple, Samsung, Dell,...)
