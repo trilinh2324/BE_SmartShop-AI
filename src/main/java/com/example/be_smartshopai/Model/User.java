@@ -1,5 +1,6 @@
 package com.example.be_smartshopai.Model;
 
+import com.example.be_smartshopai.Enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,18 +15,22 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
+    private Long phone_number;
     @Column(nullable = false, unique = true)
     private String username; // tên khách hàng
     private String password;//mật khẩu
     private String email;
-    private long phone_number;//số đt
     private String gender; // giới tính
     private String address;// địa chỉ
+    @Enumerated(EnumType.STRING)
+    private UserStatus status = UserStatus.ACTIVE;
 
-    @OneToOne
-    @JoinColumn(name = "Role_id")
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
+
 
     public Role getRole() {
         return role;

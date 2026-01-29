@@ -1,4 +1,4 @@
-package com.example.be_smartshopai.Service;
+package com.example.be_smartshopai.Service.Categorys;
 
 import com.example.be_smartshopai.Model.Category;
 import com.example.be_smartshopai.Repository.CategoryRepository;

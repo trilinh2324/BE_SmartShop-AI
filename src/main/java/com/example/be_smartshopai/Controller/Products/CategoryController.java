@@ -1,12 +1,9 @@
 package com.example.be_smartshopai.Controller.Products;
 
 import com.example.be_smartshopai.Model.Category;
-import com.example.be_smartshopai.Repository.CategoryRepository;
+import com.example.be_smartshopai.Service.Categorys.CategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,10 +13,35 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryController {
 
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
+    // ✅ Lấy tất cả category
     @GetMapping
     public List<Category> getAll() {
-        return categoryRepository.findAll();
+        return categoryService.getAll();
+    }
+    @GetMapping("/{id}")
+    public Category getById(@PathVariable Long id) {
+        return categoryService.getById(id);
+    }
+    // ✅ Thêm category
+    @PostMapping
+    public Category create(@RequestBody Category category) {
+        return categoryService.create(category);
+    }
+
+    // ✅ Sửa category
+    @PutMapping("/{id}")
+    public Category update(
+            @PathVariable Long id,
+            @RequestBody Category category
+    ) {
+        return categoryService.update(id, category);
+    }
+
+    // ✅ Xóa category
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        categoryService.delete(id);
     }
 }

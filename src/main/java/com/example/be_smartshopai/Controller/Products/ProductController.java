@@ -1,19 +1,13 @@
 package com.example.be_smartshopai.Controller.Products;
 
 import com.example.be_smartshopai.Model.Product;
-import com.example.be_smartshopai.Repository.ProductRepository;
 import com.example.be_smartshopai.Request.ProductCreateRequest;
 import com.example.be_smartshopai.Request.ProductUpdateRequest;
-import com.example.be_smartshopai.Service.ProductService;
+import com.example.be_smartshopai.Service.Products.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 @RestController
 @RequestMapping("/api/products")

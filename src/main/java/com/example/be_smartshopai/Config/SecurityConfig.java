@@ -1,6 +1,5 @@
 package com.example.be_smartshopai.Config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,7 +7,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -24,10 +22,12 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // ✅ CHO PHÉP XEM ẢNH
-                        .requestMatchers("/uploads/**").permitAll()
 
-                        // API
+                        // PUBLIC
+                        .requestMatchers("/uploads/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+
+                        // 🔥 CHO PHÉP ADMIN API (TẠM THỜI)
                         .requestMatchers("/api/**").permitAll()
 
                         .anyRequest().authenticated()
@@ -35,5 +35,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
 }

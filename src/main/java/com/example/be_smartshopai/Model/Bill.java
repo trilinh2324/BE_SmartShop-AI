@@ -1,5 +1,6 @@
 package com.example.be_smartshopai.Model;
 
+import com.example.be_smartshopai.Enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,9 @@ public class Bill {
 
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BillItem> items;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus = OrderStatus.PENDING_CONFIRMATION;
 
     private double totalPayableAmount;
     private String selectedCountry;

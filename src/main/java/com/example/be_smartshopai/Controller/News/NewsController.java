@@ -18,7 +18,6 @@ import java.util.List;
 public class NewsController {
 
     private final NewsService newsService;
-
     @GetMapping
     public List<News> getAll() {
         return newsService.getAll();

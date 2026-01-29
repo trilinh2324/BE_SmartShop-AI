@@ -1,4 +1,4 @@
-package com.example.be_smartshopai.Service;
+package com.example.be_smartshopai.Service.Products;
 
 import com.example.be_smartshopai.Model.*;
 import com.example.be_smartshopai.Repository.*;
