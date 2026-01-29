@@ -8,7 +8,7 @@ public class BeSmartShopAiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BeSmartShopAiApplication.class, args);
-       // System.out.println("http://localhost:8080/Products/login");
+       System.out.println("http://localhost:8080/api/admin");
     }
 
 }
